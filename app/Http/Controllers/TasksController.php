@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tasks;
-use App\Http\Requests\StoreTasksRequest;
-use App\Http\Requests\UpdateTasksRequest;
+use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
@@ -19,7 +18,7 @@ class TasksController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTasksRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +34,7 @@ class TasksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTasksRequest $request, Tasks $tasks)
+    public function update(Request $request, Tasks $tasks)
     {
         //
     }
