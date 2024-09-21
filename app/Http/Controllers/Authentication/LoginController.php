@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Authentication;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function authenticate(Request $request): RedirectResponse
+    public function authenticate(Request $request)
     {
         $remember = $request->input('remember', false);
 
@@ -21,12 +20,14 @@ class LoginController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return response([
+                'user' => Auth::user()
+            ], 200);
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        return response([
+            'error' => 'The provided credentials do not match our records.',
+        ], 422);
     }
 
     public function logout(Request $request)
