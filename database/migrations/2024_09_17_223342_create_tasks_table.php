@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id')->cascadeOnDelete();
             $table->foreignId('task_group_id')->constrained('task_groups', 'id')->cascadeOnDelete();
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
 
-            $table->string('due_date');
+            $table->string('due_date')->nullable();
 
             $table->enum('status', [
                 'complete',

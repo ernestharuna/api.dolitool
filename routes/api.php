@@ -10,14 +10,16 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::post('register', [RegisterController::class, 'register']);
-
 Route::post('login', [LoginController::class, 'authenticate']);
-Route::post('logout', [LoginController::class, 'logout']);
 
-Route::as('tasks:')->middleware(['auth:sanctum', 'verified'])->group(
-    base_path('routes/api/tasks.php'),
-);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('logout', [LoginController::class, 'logout']);
 
-Route::as('task_group:')->middleware(['auth:sanctum', 'verified'])->group(
-    base_path('routes/api/task_groups.php'),
-);
+    Route::as('tasks:')->middleware(['auth:sanctum', 'verified'])->group(
+        base_path('routes/api/tasks.php'),
+    );
+
+    Route::as('task_group:')->middleware(['auth:sanctum', 'verified'])->group(
+        base_path('routes/api/task_groups.php'),
+    );
+});

@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users', 'id')->cascadeOnDelete();
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->enum('importance', [
                 'low',
                 'medium',
                 'high',
             ])->default('medium');
-            $table->string('theme');
+            
+            $table->string('theme')->nullable();
             $table->timestamps();
         });
     }
